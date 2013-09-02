@@ -1,0 +1,23 @@
+<div class="rich-text-area">
+
+  <div class="edit">
+    <div class="edit-pane"></div>
+    <div class="menu">
+      <div class="variants add">variants</div>
+      <div class="trash add">t</div>
+    </div>
+  </div>
+
+  <p class="editable-area text-area" data-name="rich-text-content" data-id="{{ content._id }}" contenteditable="true">
+    {% if content.content %}
+      {{ content.content }}
+    {% else %}
+      This is a rich text area.
+    {% endif %}
+  </p>
+
+  <div class="add-drawer">
+    <div class="add" data-action="add-rich-text">rich text</div>
+  </div>
+
+</div>

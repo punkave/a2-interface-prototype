@@ -1,0 +1,8 @@
+{% extends 'base_layout.html' %}
+
+{# we have access to the page object here #}
+
+{% block content %}
+  <div class="stuff"></div>
+  <div class="content">{{ 'main' | aposArea(page) }}</div>
+{% endblock %}

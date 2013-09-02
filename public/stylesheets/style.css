@@ -1,0 +1,330 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+i,
+em {
+  font-style: italic;
+}
+b,
+strong {
+  font-weight: bold;
+}
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+}
+.add-content {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 2em;
+}
+.button {
+  list-style-type: none;
+  padding: 1em;
+  background-color: white;
+  border: 3px solid #e24610;
+  font-family: 'Montserrat';
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #e24610;
+  cursor: default;
+}
+.button .options {
+  z-index: 9999;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+.button .options li {
+  list-style-type: none;
+  padding: 1em;
+  background-color: #e24610;
+  color: white;
+  cursor: pointer;
+  -moz-transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s;
+  -ms-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+.button .options li:hover {
+  background-color: #b2370d;
+}
+.button:hover .options {
+  display: block;
+}
+.rich-text-area {
+  position: relative;
+}
+.rich-text-area:hover .edit .edit-pane {
+  opacity: 0.5;
+}
+.rich-text-area:hover .edit .menu {
+  opacity: 1;
+}
+.rich-text-area:hover .add-drawer {
+  height: 3em;
+}
+.edit-pane {
+  background-color: #e24610;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  -moz-transition: opacity 0.2s;
+  -webkit-transition: opacity 0.2s;
+  -ms-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+.menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  text-align: right;
+  opacity: 0;
+  -moz-transition: opacity 0.2s;
+  -webkit-transition: opacity 0.2s;
+  -ms-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+.add-drawer {
+  z-index: 9998;
+  height: 0em;
+  overflow: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  -moz-transition: height 0.2s;
+  -webkit-transition: height 0.2s;
+  -ms-transition: height 0.2s;
+  -o-transition: height 0.2s;
+  transition: height 0.2s;
+  background-color: #e24610;
+  text-align: center;
+}
+.editable-area {
+  padding: 1em;
+}
+.add {
+  display: inline-block;
+  margin-top: 0.25em;
+  padding: 0.5em;
+  font-family: 'Montserrat';
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #e24610;
+  background-color: white;
+  cursor: pointer;
+  -moz-transition: background-color 0.2s, color 0.2s;
+  -webkit-transition: background-color 0.2s, color 0.2s;
+  -ms-transition: background-color 0.2s, color 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
+}
+.add:hover {
+  background-color: #d4d4d4;
+  color: #212121;
+}
+body {
+  margin: 0;
+  font: 14px "Verlag", Helvetica, Arial, sans-serif;
+  background-color: white;
+  color: #212121;
+}
+a {
+  color: #f4f4f4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: white;
+  margin-top: 10px;
+}
+h1 {
+  font-size: 200%;
+}
+h2 {
+  font-size: 175%;
+}
+h3 {
+  font-size: 150%;
+}
+h4 {
+  font-size: 125%;
+}
+h5 {
+  font-size: 100%;
+}
+h6 {
+  font-size: 75%;
+}
+.a-splash-of-color-1 {
+  background-color: #ca7a57;
+}
+.a-splash-of-color-2 {
+  background-color: #b8ce5d;
+}
+.a-splash-of-color-3 {
+  background-color: #ccb05a;
+}
+.a-splash-of-color-4 {
+  background-color: #45b873;
+}
+.block {
+  width: 100%;
+  padding: 40px 0;
+}
+.inner {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+.hidden {
+  display: none;
+}
+.apos-area {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #dbdbdb;
+  text-align: center;
+}
+.text-area {
+  font-size: 24px;
+}

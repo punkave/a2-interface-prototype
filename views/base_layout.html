@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>a2</title>
+  <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <script src="/javascripts/jquery2.js"></script>
+  <script src="/javascripts/ckeditor/ckeditor.js"></script>
+  <script src="/javascripts/editor.js"></script>
+</head>
+<body>
+
+  {% block content %}
+  {% endblock %}
+  <div id="template-rich-text" class="hidden">
+    {% include 'RichText.partial.html' %}
+  </div>
+
+</body>
+</html>
