@@ -1,8 +1,11 @@
-templating is rad
-=================
+A2 interface prototype
+======================
 
-To get started, `cd ~/sites`, run `git clone git@github.com:kylestetz/templating-tutorial.git` and then `cd templating-tutorial` and run `npm install`.
+This is an exploration in a new editing interface for [Apostrophe 2](https://github.com/punkave/apostrophe). This isn't the inteded implementation, nor is it feature-complete... Just a lil prototype!
 
-Then run `node app.js` or `nodemon app.js` to get started.
+Usage:
+once the server is running, hit `localhost:3000/pages/<name>` to create a page. You can continue to access that page at the specified URL.
 
-The template is `views/index.html` and the Javascript file with the data in it is `routes/index.js`.
+The Page system isn't 100% wired up, so you will see text changes saved to the database but not images, text merging, floated-images-and-text areas, or content deletions.
+
+Built by [P'unk](http://punkave.com).
