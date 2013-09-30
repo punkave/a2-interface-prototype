@@ -17,6 +17,10 @@ env.addFilter('log', function(data) {
   console.log(data);
 });
 
+env.addFilter('stringify', function(data) {
+  return JSON.stringify(data);
+});
+
 // configure the app
 app.configure( function(){
   env.express(app);

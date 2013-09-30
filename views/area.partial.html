@@ -1,17 +1,27 @@
 {# this template is rendered in the event that an area exists already.#}
 
-<div class="apos-area" data-name="{{ area.name }}" data-slug="{{ slug }}">
+<div class="apos-area" data-name="{{ name }}" data-slug="{{ slug }}" data-types="{{ types }}">
   <div class="add-content" data-type="add-content">
     <ul class="button">
       <li>+ ADD CONTENT</li>
       <ul class="options">
-        <li data-action="add-rich-text">Rich Text</li>
-        <li data-action="add-slideshow">Slideshow</li>
+        {% for type in types %}
+          <li data-action="add-{{ type }}">{{ type }}</li>
+        {% endfor %}
       </ul>
     </ul>
   </div>
 
-  {% for content in area.content %}
-    {{ content.type | aposContent(content) }}
+  {% for content in contents %}
+    {{ content.type | aposContent(content, types) }}
   {% endfor %}
 </div>
+
+
+{% macro contentOptions(types) %}
+<ul class="options">
+  {% for type in types %}
+    <li data-action="add-{{ type }}">{{ type }}</li>
+  {% endfor %}
+</ul>
+{% endmacro %}

@@ -1,0 +1,29 @@
+<div class="floated-image-area editable-area" data-object='{{ content | stringify }}' data-type="content">
+
+  {% include '_editorMarkup.html' %}
+
+  <div class="viewer">
+    <div class="floated-slideshow">
+      <div class="centered"><i class="icon-picture"></i></div>
+    </div>
+
+    <div class="text-area" data-name="rich-text-content">floated image stuff</div>
+  </div>
+
+  <div class="editor">
+    <div class="slideshow-manager">
+      <div class="slideshow-thumbnail">
+        <div class="centered"><i class="icon-picture"></i></div>
+      </div>
+      <div class="add-image">+</div>
+    </div>
+
+    <div class="text-area" data-name="rich-text-content" data-text-editor contenteditable="true">floated image stuff</div>
+  </div>
+
+  <div class="add-drawer">
+    <div class="add" data-action="add-RichText">+ RichText</div>
+    <div class="add" data-action="add-Slideshow">+ Slideshow</div>
+  </div>
+
+</div>

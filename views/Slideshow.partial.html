@@ -1,1 +1,19 @@
-<div class="slideshow-area">this is a slideshow area.</div>
+{% include 'contentMacros.html' %}
+<div class="slideshow-area editable-area empty" data-object='{{ content | stringify }}' data-type="content">
+
+  {% include '_editorMarkup.html' %}
+
+  <div class="slideshow" data-name="slideshow-content">
+    {% if content.content.files %}
+      {{ content.content.files }}
+    {% else %}
+      <div class="centered"><i class="icon-picture"></i></div>
+    {% endif %}
+  </div>
+
+  <div class="add-drawer">
+    <div class="add" data-action="add-RichText">+ RichText</div>
+    <div class="add" data-action="add-Slideshow">+ Slideshow</div>
+  </div>
+
+</div>

@@ -18,7 +18,6 @@ module.exports = function(app, env, mongo) {
   var contentTypes = require('./contentTypes');
 
   var AposPage = contentTypes.AposPage;
-  var AposArea = contentTypes.AposArea;
   var AposContent = contentTypes.AposContent;
 
   // env.addFilters for rendering partial templates
@@ -26,102 +25,69 @@ module.exports = function(app, env, mongo) {
 
   // routes for saving go here
 
-  app.post('/apos-content', function(req, res) {
-
-    var slug = req.body.slug;
-    var areaName = req.body.area;
-    var content = req.body.content;
-    var id = req.body.id;
-    console.log(slug);
-    console.log(areaName);
-    console.log(content);
-    console.log(id);
-
-    AposPage.findOne({ slug: slug }, function(err, page) {
-      if(err) {
-        console.log('error finding aposPage while posting content');
-        return res.send('error finding aposPage while posting content');
-      }
-
-      // if the page already has areas
-      if(page.areas.length) {
-        area = _.find(page.areas, function(a) {
-          return a.name == areaName;
-        });
-        if(area) {
-          aposContent = _.find(area.content, function(c) {
-            return c.id == id;
-          });
-          if(aposContent) {
-            aposContent.content = content;
-          } else {
-            var newContent = new AposContent({ type: 'RichText', content: content });
-            area.content.push(newContent);
-          }
-          page.save( function(err) {
-            if(err) {
-              console.log('error saving existing area in page');
-              console.log(err);
-              return res.send('error saving existing area in page.');
-            }
-            return res.send(newContent || aposContent);
-          });
-        }
-      }
-      // if the page doesn't have any areas yet...
-      else {
-        // make a new area
-        var newArea = new AposArea({ name: areaName, content: content });
-        page.areas.push(newArea);
-        page.save( function(err) {
-          if(err) {
-            console.log('error saving new area in page');
-            console.log(err);
-            return res.send('error saving new area in page.');
-          }
-          return res.json(newArea);
-        });
-      }
-    });
-  });
-
-  app.post('/apos-content/new', function(req, res) {
-    var slug = req.body.slug;
+  app.post('/content', function(req, res) {
+    // incoming: id, area (name), type, content, slug
+    console.log(req.body);
+    var _id = req.body._id;
     var areaName = req.body.area;
     var type = req.body.type;
-    console.log('new content requested...');
-    AposPage.findOne({ slug: slug }, function(err, page) {
-      if(err) {
-        console.log('error finding page.');
-        res.send('error finding page');
-      }
+    var content = req.body.content;
+    var slug = req.body.slug;
 
-      if(page.areas.length) {
-        area = _.find(page.areas, function(a) {
-          return a.name == areaName;
-        });
-
-
-
-        // stuck here!
-
-
-
-      } else {
-        // make a new piece of content and put it in a new area
-        var newContent = new AposContent({ type: type });
-        var newArea = new AposArea({ name: areaName, content: newContent });
-        page.areas.push(newArea);
-        page.save( function(err) {
+    // if the id is null, make a new AposContent
+    if(!_id) {
+      var aposContent = new AposContent({
+        area: areaName,
+        type: type,
+        content: content,
+      });
+      aposContent.markModified('content');
+      aposContent.save( function(err) {
+        if(err) {
+          res.statusCode = 500;
+          return res.send('error saving new aposContent');
+        }
+        console.log('the aposcontent we just saved:');
+        console.log(aposContent);
+        // we need to get the page and add a content reference to it
+        AposPage.findOne({ slug: slug }, function(err, page) {
           if(err) {
-            console.log('error saving new area in page');
-            console.log(err);
-            return res.send('error saving new area in page.');
+            res.statusCode = 500;
+            return res.send('error getting page while saving new aposContent');
           }
-          return res.json(newContent);
+
+          console.log('the page:');
+          console.log(page);
+          page.content.push(aposContent._id);
+          page.save( function(err) {
+            if(err) {
+              res.statusCode = 500;
+              console.log(err);
+              return res.send('error saving aposPage');
+            }
+            // not returning the object for now
+            return res.json(aposContent);
+          })
         });
-      }
-    });
+      });
+    }
+    // else get the AposContent by id
+    else {
+      AposContent.findOne({ _id: _id }, function(err, aposContent) {
+        aposContent.content = content;
+        aposContent.area = areaName;
+        aposContent.markModified('content');
+        aposContent.save( function(err) {
+          if(err) {
+            res.statusCode = 500;
+            console.log(err);
+            return res.send('error saving aposContent');
+          }
+          // we don't need to return the object for now.
+          return res.send('saved');
+        });
+      });
+    }
   });
 
   // main page route
@@ -130,15 +96,20 @@ module.exports = function(app, env, mongo) {
 
     var url = req.params.slug;
 
-    AposPage.findOne({ slug: url }, function(err, page) {
+    // REFACTOR to join content
+
+    AposPage.findOne({ slug: url }).populate('content').exec( function(err, page) {
       if(err) {
         return res.send('there was an error finding apospage');
+        console.log(err);
       }
 
       if(page) {
+        console.log('found a page after populate:');
+        console.log(page);
         // render the template
         console.log('found an existing page');
-        res.render('index.html', { page: page });
+        return res.render('index.html', { page: page });
       } else {
         // make the page, render the template
         console.log('making a new page...');
@@ -149,7 +120,7 @@ module.exports = function(app, env, mongo) {
             res.send('there was an error saving a new apospage');
           }
 
-          res.render('index.html', { page: newPage });
+          return res.render('index.html', { page: newPage });
         });
       }
     });

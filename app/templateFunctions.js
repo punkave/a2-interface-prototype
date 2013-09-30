@@ -2,15 +2,16 @@ var _ = require('underscore');
 
 module.exports = function(app, env) {
 
-  env.addFilter('aposArea', function(name, page) {
-    area = _.find(page.areas, function(area) {
-      return area.name == name;
+  env.addFilter('aposArea', function(name, page, types) {
+    // get an array of content for this area
+    var contents = _.filter(page.content, function(c) {
+      return c.area == name;
     });
 
-    if(area) {
-      return env.render('area.partial.html', { area: area, slug: page.slug });
+    if(contents) {
+      return env.render('area.partial.html', { contents: contents, name: name, slug: page.slug, types: types });
     } else {
-      return env.render('newArea.partial.html', { name: name, slug: page.slug });
+      return env.render('newArea.partial.html', { name: name, slug: page.slug, types: types });
     }
   });
 

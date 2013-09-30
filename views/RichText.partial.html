@@ -1,23 +1,20 @@
-<div class="rich-text-area">
+{% include 'contentMacros.html' %}
 
-  <div class="edit">
-    <div class="edit-pane"></div>
-    <div class="menu">
-      <div class="variants add">variants</div>
-      <div class="trash add">t</div>
-    </div>
-  </div>
+<div class="rich-text-area editable-area" data-object='{{ content | stringify | escape }}' data-type="content">
 
-  <p class="editable-area text-area" data-name="rich-text-content" data-id="{{ content._id }}" contenteditable="true">
-    {% if content.content %}
-      {{ content.content }}
+  {% include '_editorMarkup.html' %}
+
+  <p class="text-area" data-name="rich-text-content" contenteditable="true">
+    {% if content.content.text %}
+      {{ content.content.text }}
     {% else %}
       This is a rich text area.
     {% endif %}
   </p>
 
   <div class="add-drawer">
-    <div class="add" data-action="add-rich-text">rich text</div>
+    <div class="add" data-action="add-RichText">+ RichText</div>
+    <div class="add" data-action="add-Slideshow">+ Slideshow</div>
   </div>
 
 </div>

@@ -6,15 +6,36 @@
   <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
   <script src="/javascripts/jquery2.js"></script>
+  <script src="/javascripts/jquery-ui-sortable.js"></script>
+  <script src="/javascripts/dropzone.js"></script>
   <script src="/javascripts/ckeditor/ckeditor.js"></script>
+  <script src="/javascripts/ckeditor/plugins/floating-tools/plugin.js"></script>
   <script src="/javascripts/editor.js"></script>
 </head>
 <body>
 
   {% block content %}
   {% endblock %}
+
+  <div class="white-overlay"></div>
+  <div class="settings">
+    <div class="settings-button"></div>
+    <ul class="settings-menu">
+      <li>Page Settings</li>
+      <li>Page Versions</li>
+      <li>Move to Trash</li>
+    </ul>
+  </div>
+
+
   <div id="template-rich-text" class="hidden">
     {% include 'RichText.partial.html' %}
+  </div>
+  <div id="template-slideshow" class="hidden">
+    {% include 'Slideshow.partial.html' %}
+  </div>
+  <div id="floated-image-text" class="hidden">
+    {% include 'floatedImage.partial.html' %}
   </div>
 
 </body>

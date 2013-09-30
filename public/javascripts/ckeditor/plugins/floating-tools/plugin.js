@@ -5,6 +5,8 @@
  */
 (function() {
 
+	console.log('hey?');
+
 	var floatingtools = function() {
 		this.dom = null;  // the main toolbar-object
 		this.toolbars = [];

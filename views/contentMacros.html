@@ -1,0 +1,5 @@
+{% macro addOptions(types) %}
+  {% for type in types %}
+    <div class="add" data-action="add-{{ type }}">{{ type }}</div>
+  {% endfor %}
+{% endmacro %}
